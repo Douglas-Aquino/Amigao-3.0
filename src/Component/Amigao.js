@@ -1,4 +1,4 @@
-import React, {useState}  from "react"
+import React, {useEffect, useState}  from "react"
 import axios from "axios"
 import styled from "styled-components"
 
@@ -9,6 +9,7 @@ height:60vh;
 border-radius:50%;
 margin-left:35vw;
 margin-top:5vh;
+box-shadow:10px 10px 10px;
 img{
   width:100%;
   height:100%;
@@ -48,17 +49,20 @@ color:white;
 export default function App(){
    const [Dog , setDog ] = useState()
 
-   function apiDog(){
-     axios.get('https://dog.ceo/api/breeds/image/random').then((response)=>{
-      //  console.log(response.data.message)
-       setDog(response.data.message)
-     } )
-   }
+  useEffect(() => {
+    function apiDog(){
+      axios.get('https://dog.ceo/api/breeds/image/random').then((response)=>{
+       //  console.log(response.data.message)
+        setDog(response.data.message)
+      },{})
+    }
+  })
+   
   return(
     <>
       <T1>Melhore seu dia!!!</T1>
       <Button onClick={()=>(apiDog())}>*click*</Button>
-      <ContainImage><img src={Dog} alt=""/></ContainImage>
+      <ContainImage><img src={Dog} alt="foto decachorro"/></ContainImage>
       
     </>
   )
