@@ -1,4 +1,4 @@
-import React, {useEffect, useState}  from "react"
+import React, {useState}  from "react"
 import axios from "axios"
 import styled from "styled-components"
 
@@ -48,21 +48,23 @@ color:white;
 
 export default function App(){
    const [Dog , setDog ] = useState()
+   const [aparecendo,setAparecendo] = useState(false)
 
-  useEffect(() => {
+ 
     function apiDog(){
       axios.get('https://dog.ceo/api/breeds/image/random').then((response)=>{
        //  console.log(response.data.message)
         setDog(response.data.message)
-      },{})
+        setAparecendo(true)
+      })
     }
-  })
+  
    
   return(
     <>
       <T1>Melhore seu dia!!!</T1>
-      <Button onClick={()=>(apiDog())}>*click*</Button>
-      <ContainImage><img src={Dog} alt="foto decachorro"/></ContainImage>
+      <Button onClick={()=>{apiDog()}}>*click*</Button>
+      <ContainImage>{ aparecendo && <img src={Dog} alt="foto decachorro"/>}</ContainImage>
       
     </>
   )
